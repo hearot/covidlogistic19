@@ -1,0 +1,3 @@
+matplotlib
+python-telegram-bot
+schedule

@@ -127,3 +127,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# PNG files
+*.png
+
+# covid19 data
+data.json
+
+# Bot configuration
+conf.py
+
+# VSCode configuration
+.vscode
