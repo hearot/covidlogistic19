@@ -50,7 +50,7 @@ def send_charts():
                     bot.send_photo(chat_id=conf.chat,
                                 photo=file, 
                                 caption=("📈 " + parameter.replace("_", " ").title() +
-                                            " (" + str(data[-1][parameter]) + ")")).message_id)
+                                         " (" + f"{data[-1][parameter]:,d}".replace(',', '.') + ")")).message_id)
 
 
 schedule.every().day.at(conf.time).do(send_charts)
