@@ -8,7 +8,7 @@ To run the bot by yourself, you need:
 - Python (tested with 3.8)
 - [matplotlib](https://github.com/matplotlib/matplotlib)
 - [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
-- [schedule]https://github.com/dbader/schedule)
+- [schedule](https://github.com/dbader/schedule)
 
 ## Setup
 - Get a token from [@BotFather](http://telegram.me/BotFather).
