@@ -1,6 +1,10 @@
 # Copyright (C) Hearot - All Rights Reserved
 # Written by Gabriel Hearot <gabriel@hearot.it>.
 
+"""Send charts about italian covid19
+expansion via Telegram using a bot."""
+
+import argparse
 import datetime
 import glob
 import html
@@ -9,13 +13,13 @@ import telegram
 import time
 
 try:
-    from covidlogistic19 import main
+    from covidlogistic19 import draw_plots
 except (ImportError, ModuleNotFoundError):
-    from .covidlogistic19 import main
+    from .covidlogistic19 import draw_plots #noqa
 
 try:
     try:
-        from . import conf
+        from . import conf #noqa
     except (ImportError, ModuleNotFoundError):
         import conf
 except (ImportError, ModuleNotFoundError):
@@ -26,10 +30,28 @@ except (ImportError, ModuleNotFoundError):
 bot = telegram.Bot(token=conf.token)
 ids = []
 
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('-n', '--now', dest='now', 
+                        action='store_true', default=False,
+                        help='send now the charts')
+
+    args = parser.parse_args()
+    schedule.every().day.at(conf.time).do(send_charts)
+    
+    if args.now:
+        send_charts()
+    
+    while True:
+        schedule.run_pending()
+        time.sleep(60)
+
+
 def send_charts():
     global ids
     
-    data = main()
+    data = draw_plots()
     
     for message_id in ids:
         bot.delete_message(chat_id=conf.chat, message_id=message_id)
@@ -53,8 +75,5 @@ def send_charts():
                                          " (" + f"{data[-1][parameter]:,d}".replace(',', '.') + ")")).message_id)
 
 
-schedule.every().day.at(conf.time).do(send_charts)
-
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+if __name__ == '__main__':
+    main()

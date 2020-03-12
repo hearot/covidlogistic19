@@ -8,15 +8,17 @@ from typing import Any, List, Dict
 colours = ('b', 'g', 'r', 'c', 'm')
 data_url = ("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
             "dati-json/dpc-covid19-ita-andamento-nazionale.json")
+general_plot_parameters = ('deceduti', 'dimessi_guariti',
+                           'totale_attualmente_positivi', 'totale_casi')
 parameters = ('deceduti', 'dimessi_guariti', 'nuovi_attualmente_positivi',
               'totale_attualmente_positivi', 'totale_casi')
 
 def draw_general_plot(data):
-    global parameters
+    global general_plot_parameters
     
     pyplot.figure(1)
     
-    for k, parameter in enumerate(parameters):
+    for k, parameter in enumerate(general_plot_parameters):
         pyplot.plot(*zip(*((i['data'].split()[0][-2:],
                         i[parameter]) for i in data)), color=colours[k],
                     label=parameter.replace('_', ' ').title())
@@ -43,7 +45,7 @@ def draw_particular_plot(data, parameter: str, code: int):
     pyplot.savefig(f"{parameter}.png")
     
 
-def main() -> List[Dict[str, Any]]:
+def draw_plots() -> List[Dict[str, Any]]:
     data = retrieve_data(data_url)
     draw_general_plot(data)
     for i, parameter in enumerate(parameters):
@@ -56,4 +58,4 @@ def retrieve_data(url: str) -> List[Dict[str, Any]]:
 
    
 if __name__ == "__main__":
-    main()
+    draw_plots()
