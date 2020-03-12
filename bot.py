@@ -58,7 +58,7 @@ def send_charts():
     
     ids.clear()
     
-    for filename in glob.glob("./*.png"):
+    for filename in sorted(glob.glob("./*.png")):
         with open(filename, 'rb') as file:
             parameter = filename.replace(".png", "")[2:]
             
