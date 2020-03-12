@@ -1,4 +1,4 @@
-# [covidlogistic19](https://t.me/covidstats)
+# [covidlogistic19](https://t.me/covidstats) (view [online](https://t.me/s/covidstats))
 
 [![License: Creative Commons Attribution 4.0](https://img.shields.io/badge/License-Creative%20Commons%20Attribution%204.0%20International-blue.svg)](./LICENSE) [![Hearot](https://img.shields.io/badge/Developer-%20@hearot-blue.svg)](https://t.me/hearot)
 
