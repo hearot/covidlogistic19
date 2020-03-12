@@ -72,7 +72,9 @@ def send_charts():
                     bot.send_photo(chat_id=conf.chat,
                                 photo=file, 
                                 caption=("📈 " + parameter.replace("_", " ").title() +
-                                         " (" + f"{data[-1][parameter]:,d}".replace(',', '.') + ")")).message_id)
+                                         " (" + f"{data[-1][parameter]:,d}".replace(',', '.') + ", Δ=" +
+                                         f"{data[-1][parameter]-data[-2][parameter]:,d}".replace(',', '.') +
+                                         ")")).message_id)
 
 
 if __name__ == '__main__':

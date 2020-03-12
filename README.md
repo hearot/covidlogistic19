@@ -12,6 +12,6 @@ To run the bot by yourself, you need:
 
 ## Setup
 - Get a token from [@BotFather](http://telegram.me/BotFather).
-- Install the requirements (using `virtualenv` is recommended) by typing `pip install -r requirements.txt`
-- Edit `_conf.py` with your settings and then rename the file to `conf.py`
+- Install the requirements (using `virtualenv` is recommended) by typing `pip install -r requirements.txt`.
+- Edit `_conf.py` with your settings and then rename the file to `conf.py`.
 - Run the bot by typing `python bot.py`.
