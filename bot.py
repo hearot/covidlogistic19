@@ -60,7 +60,7 @@ def send_charts():
     
     for filename in glob.glob("./*.png"):
         with open(filename, 'rb') as file:
-            parameter = filename.replace(".png", "").replace(".\\", "")
+            parameter = filename.replace(".png", "")[2:]
             
             if parameter == "general_plot":
                 ids.append(
