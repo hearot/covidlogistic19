@@ -13,9 +13,9 @@ import telegram
 import time
 
 try:
-    from covidlogistic19 import draw_plots
+    from covid import draw_plots #noqa
 except (ImportError, ModuleNotFoundError):
-    from .covidlogistic19 import draw_plots #noqa
+    from .covid import draw_plots #noqa
 
 try:
     try:
