@@ -5,13 +5,21 @@ from matplotlib import pyplot
 from requests import get
 from typing import Any, List, Dict
 
-colours = ('b', 'g', 'r', 'c', 'm')
+colours = ('b', 'g', 'r', 'c', 'm', 'y',
+           'k', '#4F7942', '#00FFFF', '#FF2400')
 data_url = ("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
             "dati-json/dpc-covid19-ita-andamento-nazionale.json")
 general_plot_parameters = ('deceduti', 'dimessi_guariti',
-                           'totale_attualmente_positivi', 'totale_casi')
-parameters = ('deceduti', 'dimessi_guariti', 'nuovi_attualmente_positivi',
-              'totale_attualmente_positivi', 'totale_casi')
+                           'isolamento_domiciliare', 'ricoverati_con_sintomi',
+                           'tamponi', 'terapia_intensiva',
+                           'totale_attualmente_positivi', 'totale_casi',
+                           'totale_ospedalizzati')
+parameters = ('deceduti', 'dimessi_guariti',
+              'isolamento_domiciliare',
+              'ricoverati_con_sintomi', 'tamponi',
+              'terapia_intensiva', 'totale_attualmente_positivi',
+              'totale_casi', 'totale_ospedalizzati',
+              'nuovi_attualmente_positivi')
 
 def draw_general_plot(data):
     global general_plot_parameters
