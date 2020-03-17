@@ -39,6 +39,7 @@ def draw_general_plot(data):
     pyplot.savefig("general_plot.png")
     pyplot.yscale("log")
     pyplot.savefig("general_plot_log.png")
+    pyplot.clf()
 
 
 def draw_particular_plot(data, parameter: str, code: int):
@@ -64,6 +65,7 @@ def draw_particular_plot(data, parameter: str, code: int):
     pyplot.xlabel('giorno')
     pyplot.ylabel('numero di persone')
     pyplot.savefig(f"{parameter}_bars.png")
+    pyplot.clf()
     
 
 def draw_plots() -> List[Dict[str, Any]]:
