@@ -28,12 +28,11 @@ def draw_general_plot(data):
     pyplot.figure(1)
         
     for k, parameter in enumerate(general_plot_parameters):
-        pyplot.plot(*zip(*((i['data'].split()[0][-2:],
+        pyplot.plot(*zip(*((i['data'].split()[0][-2:] + '/' + i['data'].split()[0][-4],
                         i[parameter]) for i in data)), color=colours[k],
                     label=parameter.replace('_', ' ').title())
     pyplot.legend(loc="upper left")
-    pyplot.xticks(rotation=90)
-    pyplot.xlabel('giorno')
+    pyplot.xticks(rotation='vertical')
     pyplot.ylabel('numero di persone')
     pyplot.grid(True)
     pyplot.savefig("general_plot.png")
@@ -45,13 +44,13 @@ def draw_general_plot(data):
 def draw_particular_plot(data, parameter: str, code: int):
     pyplot.figure(code+2)
 
-    dates, data = tuple(zip(*((i['data'].split()[0][-2:],
+    dates, data = tuple(zip(*((i['data'].split()[0][-2:] + '/' + i['data'].split()[0][-4],
                         i[parameter]) for i in data)))
     pyplot.plot(dates, data,
                 color=colours[code],
                 label=parameter.replace('_', ' ').title())
     pyplot.legend(loc="upper left")
-    pyplot.xlabel('giorno')
+    pyplot.xticks(rotation='vertical')
     pyplot.ylabel('numero di persone')
     pyplot.grid(True)
     pyplot.savefig(f"{parameter}.png")
@@ -62,7 +61,7 @@ def draw_particular_plot(data, parameter: str, code: int):
                color=colours[code],
                label=parameter.replace('_', ' ').title())
     pyplot.legend(loc="upper left")
-    pyplot.xlabel('giorno')
+    pyplot.xticks(rotation='vertical')
     pyplot.ylabel('numero di persone')
     pyplot.savefig(f"{parameter}_bars.png")
     pyplot.clf()
