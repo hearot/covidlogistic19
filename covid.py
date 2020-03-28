@@ -2,6 +2,7 @@
 # Written by Gabriel Hearot <gabriel@hearot.it>.
 # See LICENSE.
 
+import iso8601
 import json
 from matplotlib import pyplot
 from requests import get
@@ -28,7 +29,7 @@ def draw_general_plot(data):
     pyplot.figure(1)
         
     for k, parameter in enumerate(general_plot_parameters):
-        pyplot.plot(*zip(*((i['data'].split()[0][-2:] + '/' + i['data'].split()[0][-4],
+        pyplot.plot(*zip(*((iso8601.parse_date(i['data']).strftime('%d/%m'),
                         i[parameter]) for i in data)), color=colours[k],
                     label=parameter.replace('_', ' ').title())
     pyplot.legend(loc="upper left")
@@ -44,7 +45,7 @@ def draw_general_plot(data):
 def draw_particular_plot(data, parameter: str, code: int):
     pyplot.figure(code+2)
 
-    dates, data = tuple(zip(*((i['data'].split()[0][-2:] + '/' + i['data'].split()[0][-4],
+    dates, data = tuple(zip(*((iso8601.parse_date(i['data']).strftime('%d/%m'),
                         i[parameter]) for i in data)))
     pyplot.plot(dates, data,
                 color=colours[code],
