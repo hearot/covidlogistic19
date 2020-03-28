@@ -13,24 +13,23 @@ colours = ('b', 'g', 'r', 'c', 'm', 'y',
 data_url = ("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/"
             "dati-json/dpc-covid19-ita-andamento-nazionale.json")
 extensions = {'.png': "📈 Scala lineare", '_log.png': "📈 Scala logaritmica",
-              '_bars.png': "📊 Grafico a barre"}
+              '_bars.png': "📊 Grafico a barre delle differenze"}
 general_excluded_plots = ('_bars.png',)
-general_plot_parameters = ('deceduti', 'dimessi_guariti',
-                           'isolamento_domiciliare', 'ricoverati_con_sintomi',
-                           'tamponi', 'terapia_intensiva',
-                           'totale_attualmente_positivi', 'totale_casi',
-                           'totale_ospedalizzati')
-parameters = general_plot_parameters + ('nuovi_attualmente_positivi',)
-files = sorted(parameters + ('general_plot',))
+plot_parameters = ('deceduti', 'dimessi_guariti',
+                   'isolamento_domiciliare', 'ricoverati_con_sintomi',
+                   'tamponi', 'terapia_intensiva',
+                   'totale_attualmente_positivi', 'totale_casi',
+                   'totale_ospedalizzati')
+files = sorted(plot_parameters + ('general_plot',))
 
-def draw_general_plot(data):
-    global general_plot_parameters
+def draw_general_plot(dataset):
+    global plot_parameters
     
     pyplot.figure(1)
         
-    for k, parameter in enumerate(general_plot_parameters):
+    for k, parameter in enumerate(plot_parameters):
         pyplot.plot(*zip(*((iso8601.parse_date(i['data']).strftime('%d/%m'),
-                        i[parameter]) for i in data)), color=colours[k],
+                        i[parameter]) for i in dataset)), color=colours[k],
                     label=parameter.replace('_', ' ').title())
     pyplot.legend(loc="upper left")
     pyplot.xticks(rotation='vertical')
@@ -42,11 +41,11 @@ def draw_general_plot(data):
     pyplot.clf()
 
 
-def draw_particular_plot(data, parameter: str, code: int):
+def draw_particular_plot(dataset, parameter: str, code: int):
     pyplot.figure(code+2)
 
-    dates, data = tuple(zip(*((iso8601.parse_date(i['data']).strftime('%d/%m'),
-                        i[parameter]) for i in data)))
+    dates, data = zip(*((iso8601.parse_date(i['data']).strftime('%d/%m'),
+                        i[parameter]) for i in dataset))
     pyplot.plot(dates, data,
                 color=colours[code],
                 label=parameter.replace('_', ' ').title())
@@ -58,12 +57,14 @@ def draw_particular_plot(data, parameter: str, code: int):
     pyplot.yscale("log")
     pyplot.savefig(f"{parameter}_log.png")
     pyplot.cla()
-    pyplot.bar(dates, data,
+    
+    deltas = (0,) + tuple(y-x for x, y in zip(data, data[1:]))
+    pyplot.bar(dates, deltas,
                color=colours[code],
                label=parameter.replace('_', ' ').title())
     pyplot.legend(loc="upper left")
     pyplot.xticks(rotation='vertical')
-    pyplot.ylabel('numero di persone')
+    pyplot.ylabel('differenza nel numero di persone')
     pyplot.savefig(f"{parameter}_bars.png")
     pyplot.clf()
     
@@ -71,7 +72,7 @@ def draw_particular_plot(data, parameter: str, code: int):
 def draw_plots() -> List[Dict[str, Any]]:
     data = retrieve_data(data_url)
     draw_general_plot(data)
-    for i, parameter in enumerate(parameters):
+    for i, parameter in enumerate(plot_parameters):
         draw_particular_plot(data, parameter, i)
     return data
 
