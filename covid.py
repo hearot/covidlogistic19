@@ -18,7 +18,7 @@ general_excluded_plots = ('_bars.png',)
 plot_parameters = ('deceduti', 'dimessi_guariti',
                    'isolamento_domiciliare', 'ricoverati_con_sintomi',
                    'tamponi', 'terapia_intensiva',
-                   'totale_attualmente_positivi', 'totale_casi',
+                   'totale_positivi', 'totale_casi',
                    'totale_ospedalizzati')
 files = sorted(plot_parameters + ('general_plot',))
 
